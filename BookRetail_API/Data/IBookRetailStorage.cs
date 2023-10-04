@@ -10,12 +10,12 @@ namespace BookRetail_API.Data
         IEnumerable<Author> ListAuthors();
         IEnumerable<Publisher> ListPublishers();
 
-        Book FindBook(int bookId);
-        Author FindAuthor(int authorId);
-        Publisher FindPublisher(int publisherId);
+        Book FindBook(string title);
+        Author FindAuthor(string name);
+        Publisher FindPublisher(string name);
 
         void CreateBook(Book book);
         void UpdateBook(Book book);
-        void DeleteBook(int bookId);
+        void DeleteBook(string title);
     }
 }

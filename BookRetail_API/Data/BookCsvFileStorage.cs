@@ -14,7 +14,8 @@ namespace BookRetail_API.Data
 
         private readonly Dictionary<string, Publisher> publishers = new Dictionary<string, Publisher>(collation);
         private readonly Dictionary<string, Author> authors = new Dictionary<string, Author>(collation);
-        private readonly Dictionary<int, Book> books = new Dictionary<int, Book>();
+        private readonly Dictionary<string, Book> books = new Dictionary<string, Book>();
+
         private readonly ILogger<BookCsvFileStorage> logger;
 
         public BookCsvFileStorage(ILogger<BookCsvFileStorage> logger)
@@ -30,8 +31,8 @@ namespace BookRetail_API.Data
         {
             foreach (var book in books.Values)
             {
-                book.Author = authors.GetValueOrDefault(book.AuthorId);
-                book.Publisher = publishers.GetValueOrDefault(book.PublisherId);
+                book.Author = authors.GetValueOrDefault(book.Author.Name);
+                book.Publisher = publishers.GetValueOrDefault(book.Publisher.Name);
             }
         }
 
@@ -48,19 +49,15 @@ namespace BookRetail_API.Data
             foreach (var line in File.ReadAllLines(filePath))
             {
                 var tokens = line.Split(",");
-                if (int.TryParse(tokens[0], out var bookId))
+                var book = new Book
                 {
-                    var book = new Book
-                    {
-                        BookId = bookId,
-                        Title = tokens[1],
-                        AuthorId = int.Parse(tokens[2]),
-                        PublisherId = int.Parse(tokens[3]),
-                        Price = decimal.Parse(tokens[4]),
-                        PublicationYear = int.Parse(tokens[5])
-                    };
-                    books.Add(book.BookId, book);
-                }
+                    Title = tokens[0],
+                    Author = new Author { Name = tokens[1] }, // Создаем автора на основе имени
+                    Publisher = new Publisher { Name = tokens[2] }, // Создаем издателя на основе имени
+                    Price = decimal.Parse(tokens[3]),
+                    PublicationYear = int.Parse(tokens[4])
+                };
+                books[book.Title] = book;
             }
             logger.LogInformation($"Loaded {books.Count} books from {filePath}");
         }
@@ -71,15 +68,11 @@ namespace BookRetail_API.Data
             foreach (var line in File.ReadAllLines(filePath))
             {
                 var tokens = line.Split(",");
-                if (int.TryParse(tokens[0], out var authorId))
+                var author = new Author
                 {
-                    var author = new Author
-                    {
-                        AuthorId = authorId,
-                        Name = tokens[1]
-                    };
-                    authors.Add(author.AuthorId, author);
-                }
+                    Name = tokens[0]
+                };
+                authors[author.Name] = author;
             }
             logger.LogInformation($"Loaded {authors.Count} authors from {filePath}");
         }
@@ -90,15 +83,11 @@ namespace BookRetail_API.Data
             foreach (var line in File.ReadAllLines(filePath))
             {
                 var tokens = line.Split(",");
-                if (int.TryParse(tokens[0], out var publisherId))
+                var publisher = new Publisher
                 {
-                    var publisher = new Publisher
-                    {
-                        PublisherId = publisherId,
-                        Name = tokens[1]
-                    };
-                    publishers.Add(publisher.PublisherId, publisher);
-                }
+                    Name = tokens[0]
+                };
+                publishers[publisher.Name] = publisher;
             }
             logger.LogInformation($"Loaded {publishers.Count} publishers from {filePath}");
         }
@@ -111,28 +100,28 @@ namespace BookRetail_API.Data
 
         public IEnumerable<Publisher> ListPublishers() => publishers.Values;
 
-        public Book FindBook(int bookId) => books.GetValueOrDefault(bookId);
+        public Book FindBook(string title) => books.GetValueOrDefault(title);
 
-        public Author FindAuthor(int authorId) => authors.GetValueOrDefault(authorId);
+        public Author FindAuthor(string name) => authors.GetValueOrDefault(name);
 
-        public Publisher FindPublisher(int publisherId) => publishers.GetValueOrDefault(publisherId);
+        public Publisher FindPublisher(string name) => publishers.GetValueOrDefault(name);
 
         public void CreateBook(Book book)
         {
-            books.Add(book.BookId, book);
+            books[book.Title] = book;
         }
 
         public void UpdateBook(Book book)
         {
-            if (books.ContainsKey(book.BookId))
+            if (books.ContainsKey(book.Title))
             {
-                books[book.BookId] = book;
+                books[book.Title] = book;
             }
         }
 
-        public void DeleteBook(int bookId)
+        public void DeleteBook(string title)
         {
-            books.Remove(bookId);
+            books.Remove(title);
         }
     }
 }

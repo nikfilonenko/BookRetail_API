@@ -8,8 +8,6 @@ namespace BookRetail_API.Models
         {
             Books = new HashSet<Book>();
         }
-
-        public int AuthorId { get; set; }
         public string Name { get; set; }
 
         [JsonIgnore]
