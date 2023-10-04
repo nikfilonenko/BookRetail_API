@@ -21,8 +21,8 @@ namespace BookRetail_API.Data
         public BookCsvFileStorage(ILogger<BookCsvFileStorage> logger)
         {
             this.logger = logger;
-            ReadPublishersFromCsvFile("publishers.csv");
-            ReadAuthorsFromCsvFile("authors.csv");
+            ReadPublishersFromCsvFile("books.csv");
+            ReadAuthorsFromCsvFile("books.csv");
             ReadBooksFromCsvFile("books.csv");
             ResolveReferences();
         }
@@ -39,7 +39,7 @@ namespace BookRetail_API.Data
         private string ResolveCsvFilePath(string filename)
         {
             var directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var csvFilePath = Path.Combine(directory, "csv-data");
+            var csvFilePath = Path.Combine(directory, "Csv files");
             return Path.Combine(csvFilePath, filename);
         }
 
