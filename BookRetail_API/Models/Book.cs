@@ -1,10 +1,20 @@
-﻿namespace BookRetail_API.Models;
+﻿using System.Text.Json.Serialization;
 
-public class Book
+namespace BookRetail_API.Models
 {
-    public int BookId { get; set; }
-    public string Title { get; set; }
-    public string PublishingHouse { get; set; }
-    public decimal Price { get; set; }
-    public DateTime ReleaseDate { get; set; }
+    public class Book
+    {
+        public int BookId { get; set; }
+        public string Title { get; set; }
+        public int AuthorId { get; set; }
+        public int PublisherId { get; set; }
+        public decimal Price { get; set; }
+        public int PublicationYear { get; set; }
+
+        [JsonIgnore]
+        public virtual Author Author { get; set; }
+
+        [JsonIgnore]
+        public virtual Publisher Publisher { get; set; }
+    }
 }
