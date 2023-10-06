@@ -1,5 +1,5 @@
-using Auto.API.GraphQL.Schemas;
-using Auto.Data;
+using BookRetail_API.GraphQL;
+using BookRetail_API.Data;
 using EasyNetQ;
 using GraphQL.Server;
 using GraphQL.Types;
@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton<IAutoStorage, AutoCsvFileStorage>();
+builder.Services.AddSingleton<IBookRetailStorage, BookCsvFileStorage>();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

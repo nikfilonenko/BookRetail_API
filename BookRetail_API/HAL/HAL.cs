@@ -1,4 +1,4 @@
-﻿/*using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Dynamic;
 using BookRetail_API.Models;
 
@@ -72,4 +72,4 @@ public static class HAL
             };
             return message;
         }
-}*/
+}

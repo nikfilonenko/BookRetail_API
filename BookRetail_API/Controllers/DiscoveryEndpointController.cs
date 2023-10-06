@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Auto.API.Controllers;
+namespace BookRetail_API.API.Controllers;
 
 [Route("api")]
 [ApiController]
