@@ -5,15 +5,13 @@ namespace BookRetail_API.Models
     public class Book
     {
         public string Title { get; set; }
-        public int AuthorId { get; set; }
-        public int PublisherId { get; set; }
+        public string ProductCode { get; set; }
         public decimal Price { get; set; }
+        public string Genre { get; set; }
+        public string Author { get; set; }
         public int PublicationYear { get; set; }
 
         [JsonIgnore]
-        public virtual Author Author { get; set; }
-
-        [JsonIgnore]
-        public virtual Publisher Publisher { get; set; }
+        public virtual ProductModel BookModel { get; set; }
     }
 }

@@ -11,7 +11,7 @@ public class DiscoveryEndpointController : ControllerBase
         var welcome = new {
             _links = new {
                 books = new {
-                    href = "/api/booksretail"
+                    href = "/api/books"
                 }
             },
             message = "Welcome to the BooksRetail API!",

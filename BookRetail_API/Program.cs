@@ -1,4 +1,3 @@
-using BookRetail_API.GraphQL;
 using BookRetail_API.Data;
 using EasyNetQ;
 using GraphQL.Server;
@@ -15,8 +14,8 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // Add GraphQL
-builder.Services.AddScoped<ISchema, AutoSchema>();
-builder.Services.AddGraphQL(options => { options.EnableMetrics = true; }).AddSystemTextJson();
+/*builder.Services.AddScoped<ISchema, AutoSchema>();
+builder.Services.AddGraphQL(options => { options.EnableMetrics = true; }).AddSystemTextJson();*/
 // Add RabbitMQ support
 var bus = RabbitHutch.CreateBus(builder.Configuration.GetConnectionString("AutoRabbitMQ"));
 builder.Services.AddSingleton<IBus>(bus);
@@ -28,14 +27,14 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseGraphQLAltair();
+    /*app.UseGraphQLAltair();*/
 }
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseGraphQL<ISchema>();
+/*app.UseGraphQL<ISchema>();*/
 
 app.MapControllers();
 

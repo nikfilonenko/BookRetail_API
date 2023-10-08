@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using BookRetail_API.DTO_s;
+using BookRetail_API.HAL;
 using EasyNetQ;
 
 namespace BookRetail_API.Controllers
@@ -26,34 +27,47 @@ namespace BookRetail_API.Controllers
 
         // GET: api/books
         [HttpGet]
-        [Produces("application/json")]
+        [Produces("application/hal+json")]
         public IActionResult Get(int index = 0, int count = PAGE_SIZE)
         {
-            var books = _db.ListBooks().Skip(index).Take(count);
+            var items = _db.ListBooks().Skip(index).Take(count)
+                .Select(v => v.ToResource());
             var total = _db.CountBooks();
+            var _links = HAL.HAL.PaginateAsDynamic("/api/books", index, count, total);
             var result = new
             {
+                _links,
                 count,
                 total,
                 index,
-                items = books
+                items
             };
             return Ok(result);
         }
 
         // GET api/books/{title}
-        [HttpGet("{title}")]
-        [Produces("application/json")]
-        public IActionResult Get(string title)
+        [HttpGet("{id}")]
+        [Produces("application/hal+json")]
+        public IActionResult Get(string id)
         {
-            var book = _db.FindBook(title);
-            if (book == null) return NotFound();
-            return Ok(book);
+            var book = _db.FindBook(id);
+            if (book == default) return NotFound();
+            var resource = book.ToResource();
+            resource._actions = new
+            {
+                delete = new
+                {
+                    href = $"/api/books/{id}",
+                    method = "DELETE",
+                    name = $"Delete {id} from the database"
+                }
+            };
+            return Ok(resource);
         }
 
         // POST api/books
         [HttpPost]
-        public IActionResult Post([FromBody] BookDto bookDto)
+        public IActionResult Post(string id, [FromBody] BookDto bookDto)
         {
             // Create a new book object from the DTO
             var newBook = new Book
@@ -64,12 +78,10 @@ namespace BookRetail_API.Controllers
                 Price = bookDto.Price,
                 PublicationYear = bookDto.PublicationYear
             };
-
-            // Create the book in the storage
+            
             _db.CreateBook(newBook);
-
-            // Return a response with the created book
-            return Created($"/api/books/{newBook.Title}", newBook);
+            
+            return Created($"/api/books/{newBook.Title}", newBook.ToResource());
         }
 
         // PUT api/books/{title}
@@ -78,8 +90,7 @@ namespace BookRetail_API.Controllers
         {
             var existingBook = _db.FindBook(title);
             if (existingBook == null) return NotFound();
-
-            // Update the book properties based on the DTO
+            
             existingBook.Title = bookDto.Title;
             existingBook.Author = _db.FindAuthor(bookDto.AuthorName) ?? new Author { Name = bookDto.AuthorName };
             existingBook.Publisher = _db.FindPublisher(bookDto.PublisherName) ?? new Publisher { Name = bookDto.PublisherName };
@@ -98,15 +109,13 @@ namespace BookRetail_API.Controllers
         public IActionResult Delete(string title)
         {
             var existingBook = _db.FindBook(title);
-            if (existingBook == null) return NotFound();
-
-            // Delete the book from the storage
-            _db.DeleteBook(title);
+            if (existingBook == default) return NotFound();
+            _db.DeleteBook(existingBook);
 
             return NoContent();
         }
         
-        private async Task PublishNewVehicleMessage(Book book) {
+        private async Task PublishNewBookMessage(Book book) {
             var message = book.ToMessage();
             await _bus.PubSub.PublishAsync(message);
         }

@@ -5,17 +5,17 @@ namespace BookRetail_API.Data
 {
     public interface IBookRetailStorage
     {
-        int CountBooks();
-        IEnumerable<Book> ListBooks();
-        IEnumerable<Author> ListAuthors();
-        IEnumerable<Publisher> ListPublishers();
+        public int CountBooks();
+        public IEnumerable<Book> ListBooks();
+        public IEnumerable<ProductModel> ListModels();
+        public IEnumerable<Publisher> ListPublishers();
 
-        Book FindBook(string title);
-        Author FindAuthor(string name);
-        Publisher FindPublisher(string name);
+        public Book FindBook(string title);
+        public ProductModel FindAuthor(string code);
+        public Publisher FindPublisher(string code);
 
-        void CreateBook(Book book);
-        void UpdateBook(Book book);
-        void DeleteBook(string title);
+        public void CreateBook(Book book);
+        public void UpdateBook(Book book);
+        public void DeleteBook(Book book);
     }
 }
