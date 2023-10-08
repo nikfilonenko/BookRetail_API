@@ -15,9 +15,9 @@ public class BookCsvFileStorage : IBookRetailStorage {
 
         public BookCsvFileStorage(ILogger<BookCsvFileStorage> logger) {
             this.logger = logger;
-            ReadManufacturersFromCsvFile("publishers.csv");
+            ReadPublishersFromCsvFile("publishers.csv");
             ReadModelsFromCsvFile("models.csv");
-            ReadVehiclesFromCsvFile("books.csv");
+            ReadBooksFromCsvFile("books.csv");
             ResolveReferences();
         }
 
@@ -37,14 +37,14 @@ public class BookCsvFileStorage : IBookRetailStorage {
             return Path.Combine("C:\\Users\\79057\\RiderProjects\\BookRetail_API\\BookRetail_API\\Data", filename);
         }
 
-        private void ReadVehiclesFromCsvFile(string filename) {
+        private void ReadBooksFromCsvFile(string filename) {
             var filePath = ResolveCsvFilePath(filename);
             foreach (var line in File.ReadAllLines(filePath)) {
                 var tokens = line.Split(",");
                 var book = new Book {
                     Title = tokens[0],
                     ProductCode = tokens[1],
-                    Price = Decimal.Parse(tokens[2]),
+                    Price = tokens[2],
                     Genre = tokens[3],
                     Author = tokens[4]
                 };
@@ -60,54 +60,53 @@ public class BookCsvFileStorage : IBookRetailStorage {
                 var tokens = line.Split(",");
                 var model = new ProductModel {
                     Code = tokens[0],
-                    ManufacturerCode = tokens[1],
-                    Name = tokens[2]
+                    PublisherCode = tokens[1],
                 };
                 models.Add(model.Code, model);
             }
             logger.LogInformation($"Loaded {models.Count} models from {filePath}");
         }
 
-        private void ReadManufacturersFromCsvFile(string filename) {
+        private void ReadPublishersFromCsvFile(string filename) {
             var filePath = ResolveCsvFilePath(filename);
             foreach (var line in File.ReadAllLines(filePath)) {
                 var tokens = line.Split(",");
-                var mfr = new Manufacturer {
+                var pbsh = new Publisher {
                     Code = tokens[0],
                     Name = tokens[1]
                 };
-                manufacturers.Add(mfr.Code, mfr);
+                publishers.Add(pbsh.Code, pbsh);
             }
-            logger.LogInformation($"Loaded {manufacturers.Count} manufacturers from {filePath}");
+            logger.LogInformation($"Loaded {publishers.Count} publishers from {filePath}");
         }
 
-        public int CountVehicles() => vehicles.Count;
+        public int CountBooks() => books.Count;
 
-        public IEnumerable<Vehicle> ListVehicles() => vehicles.Values;
+        public IEnumerable<Book> ListBooks() => books.Values;
 
-        public IEnumerable<Manufacturer> ListManufacturers() => manufacturers.Values;
+        public IEnumerable<Publisher> ListPublishers() => publishers.Values;
 
-        public IEnumerable<Model> ListModels() => models.Values;
+        public IEnumerable<ProductModel> ListModels() => models.Values;
 
-        public Vehicle FindVehicle(string registration) => vehicles.GetValueOrDefault(registration);
+        public Book FindBook(string title) => books.GetValueOrDefault(title);
 
-        public Model FindModel(string code) => models.GetValueOrDefault(code);
+        public ProductModel FindModel(string code) => models.GetValueOrDefault(code);
 
-        public Manufacturer FindManufacturer(string code) => manufacturers.GetValueOrDefault(code);
+        public Publisher FindPublisher(string code) => publishers.GetValueOrDefault(code);
 
-        public void CreateVehicle(Vehicle vehicle) {
-            vehicle.VehicleModel.Vehicles.Add(vehicle);
-            vehicle.ModelCode = vehicle.VehicleModel.Code;
-            UpdateVehicle(vehicle);
+        public void CreateBook(Book book) {
+            book.BookModel.Books.Add(book);
+            book.ProductCode = book.BookModel.Code;
+            UpdateBook(book);
         }
 
-        public void UpdateVehicle(Vehicle vehicle) {
-            vehicles[vehicle.Registration] = vehicle;
+        public void UpdateBook(Book book) {
+            books[book.Title] = book;
         }
 
-        public void DeleteVehicle(Vehicle vehicle) {
-            var model = FindModel(vehicle.ModelCode);
-            model.Vehicles.Remove(vehicle);
-            vehicles.Remove(vehicle.Registration);
+        public void DeleteBook(Book book) {
+            var model = FindModel(book.ProductCode);
+            model.Books.Remove(book);
+            books.Remove(book.Title);
         }
     }

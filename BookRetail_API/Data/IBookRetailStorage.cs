@@ -11,7 +11,7 @@ namespace BookRetail_API.Data
         public IEnumerable<Publisher> ListPublishers();
 
         public Book FindBook(string title);
-        public ProductModel FindAuthor(string code);
+        public ProductModel FindModel(string code);
         public Publisher FindPublisher(string code);
 
         public void CreateBook(Book book);
