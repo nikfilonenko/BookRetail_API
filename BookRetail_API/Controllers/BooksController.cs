@@ -80,8 +80,8 @@ public class BooksController : ControllerBase
     }
     
     // POST api/books
-    [HttpPost("{id}")]
-    public async Task<IActionResult> Post(string id, [FromBody] BookDto dto)
+    [HttpPost]
+    public async Task<IActionResult> Post([FromBody] BookDto dto)
     {
         var existing = _db.FindBook(dto.Title);
         if (existing != default)
