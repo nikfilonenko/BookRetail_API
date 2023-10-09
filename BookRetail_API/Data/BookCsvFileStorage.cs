@@ -88,9 +88,9 @@ public class BookCsvFileStorage : IBookRetailStorage {
 
         public IEnumerable<ProductModel> ListModels() => models.Values;
 
-        public Book FindBook(string title) => books.GetValueOrDefault(title);
+        public Book? FindBook(string title) => books.GetValueOrDefault(title);
 
-        public ProductModel FindModel(string code) => models.GetValueOrDefault(code);
+        public ProductModel? FindModel(string code) => models.GetValueOrDefault(code);
 
         public Publisher FindPublisher(string code) => publishers.GetValueOrDefault(code);
 

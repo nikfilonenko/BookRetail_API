@@ -87,6 +87,9 @@ public class BooksController : ControllerBase
         if (existing != default)
             return Conflict($"Sorry, there is already a book with title {dto.Title} in the database.");
         var bookModel = _db.FindModel(dto.ProductCode);
+        if (bookModel == default)
+            return Conflict($"Sorry, there is already a book with title {dto.ProductCode} in the database.");
+        
         var book = new Book
         {
             Title = dto.Title,
@@ -97,7 +100,6 @@ public class BooksController : ControllerBase
             Author = dto.AuthorName
         };
         _db.CreateBook(book);
-        await PublishNewBookMessage(book);
         return Created($"/api/books/{book.Title}", book.ToResource());
     }
 
@@ -109,10 +111,5 @@ public class BooksController : ControllerBase
         if (book == default) return NotFound();
         _db.DeleteBook(book);
         return NoContent();
-    }
-    
-    private async Task PublishNewBookMessage(Book book) {
-        var message = book.ToMessage();
-        await _bus.PubSub.PublishAsync(message);
     }
 }
