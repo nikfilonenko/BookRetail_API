@@ -101,7 +101,7 @@ public class BooksController : ControllerBase
         return Created($"/api/books/{book.Title}", book.ToResource());
     }
 
-    // DELETE api/vehicles/ABC123
+    // DELETE api/books/ABC123
     [HttpDelete("{id}")]
     public IActionResult Delete(string id)
     {
