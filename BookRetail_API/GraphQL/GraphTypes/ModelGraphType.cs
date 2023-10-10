@@ -1,12 +1,12 @@
-/*using BookRetail_API.Core.Entities;
+using BookRetail_API.Models;
 using GraphQL.Types;
 
-namespace BookRetail_API.API.GraphQL.GraphTypes;
+namespace BookRetail_API.GraphQL.GraphTypes;
 
-public sealed class ModelGraphType : ObjectGraphType<Model> {
+public sealed class ModelGraphType : ObjectGraphType<ProductModel> {
     public ModelGraphType() {
         Name = "model";
-        Field(m => m.Name).Description("The name of this model, e.g. Golf, Beetle, 5 Series, Model X");
-        Field(m => m.Manufacturer, type: typeof(ManufacturerGraphType)).Description("The make of this model of car");
+        Field(m => m.Code).Description("The code of this model, e.g. Golf, Beetle, 5 Series, Model X");
+        Field(m => m.Publisher, type: typeof(PublisherGraphType)).Description("The make of this model of book");
     }
-}*/
+}
