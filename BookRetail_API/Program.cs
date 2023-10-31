@@ -23,8 +23,8 @@ builder.Services.AddGraphQL(options =>
     .AddSystemTextJson();
 
 // Add RabbitMQ support
-var bus = RabbitHutch.CreateBus(builder.Configuration.GetConnectionString("AutoRabbitMQ"));
-builder.Services.AddSingleton<IBus>(bus);
+// var bus = RabbitHutch.CreateBus(builder.Configuration.GetConnectionString("AutoRabbitMQ"));
+// builder.Services.AddSingleton<IBus>(bus);
 
 var app = builder.Build();
 
