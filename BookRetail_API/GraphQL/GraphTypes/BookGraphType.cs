@@ -8,7 +8,7 @@ public sealed class BookGraphType : ObjectGraphType<Book> {
     public BookGraphType() {
         Name = "book";
         Field(c => c.BookModel, nullable: false, type: typeof(ModelGraphType))
-            .Description("The model of this particular vehicle");
+            .Description("The model of this particular book");
         Field(c => c.Title);
         Field(c => c.Author);
         Field(c => c.ProductCode);

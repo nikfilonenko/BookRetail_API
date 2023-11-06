@@ -1,6 +1,6 @@
-using BookRetail_API.API.GraphQL.Mutations;
 using BookRetail_API.API.GraphQL.Queries;
 using BookRetail_API.Data;
+using BookRetail_API.GraphQL.Mutations;
 using GraphQL.Types;
 
 namespace BookRetail_API.GraphQL.Schemas;
