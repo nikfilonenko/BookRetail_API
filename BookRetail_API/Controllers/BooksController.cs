@@ -100,6 +100,7 @@ public class BooksController : ControllerBase
             Author = dto.AuthorName
         };
         _db.CreateBook(book);
+        await PublishNewBookMessage(book);
         return Created($"/api/books/{book.Title}", book.ToResource());
     }
 
@@ -111,5 +112,10 @@ public class BooksController : ControllerBase
         if (book == default) return NotFound();
         _db.DeleteBook(book);
         return NoContent();
+    }
+    
+    private async Task PublishNewBookMessage(Book book) {
+        var message = book.ToMessage();
+        await _bus.PubSub.PublishAsync(message);
     }
 }
