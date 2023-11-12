@@ -19,7 +19,6 @@ public class BookMutation: ObjectGraphType
             arguments: new QueryArguments(
                 new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "title"},
                 new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "author"},
-                new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "price"},
                 new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "genre"},
                 new QueryArgument<NonNullGraphType<IntGraphType>> { Name = "publicationYear"},
                 new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "productCode"}
@@ -28,7 +27,6 @@ public class BookMutation: ObjectGraphType
             {
                 var title = context.GetArgument<string>("title");
                 var author = context.GetArgument<string>("author");
-                var price = context.GetArgument<string>("price");
                 var genre = context.GetArgument<string>("genre");
                 var year = context.GetArgument<int>("publicationYear");
                 var modelCode = context.GetArgument<string>("productCode");
@@ -44,7 +42,6 @@ public class BookMutation: ObjectGraphType
                 existingBook.Title = title;
                 existingBook.Genre = genre;
                 existingBook.Author = author;
-                existingBook.Price = price;
                 existingBook.PublicationYear = year;
                 existingBook.BookModel = bookModel;
                 existingBook.ProductCode = bookModel.Code;
@@ -60,7 +57,6 @@ public class BookMutation: ObjectGraphType
             arguments: new QueryArguments(
                 new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "title"},
                 new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "author"},
-                new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "price"},
                 new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "genre"},
                 new QueryArgument<NonNullGraphType<IntGraphType>> { Name = "publicationYear"},
                 new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "productCode"}
@@ -69,7 +65,6 @@ public class BookMutation: ObjectGraphType
             {
                 var title = context.GetArgument<string>("title");
                 var author = context.GetArgument<string>("author");
-                var price = context.GetArgument<string>("price");
                 var genre = context.GetArgument<string>("genre");
                 var year = context.GetArgument<int>("publicationYear");
                 var modelCode = context.GetArgument<string>("productCode");
@@ -86,7 +81,6 @@ public class BookMutation: ObjectGraphType
                     Title = title,
                     Genre = genre,
                     Author = author,
-                    Price = price,
                     PublicationYear = year,
                     BookModel = bookModel,
                     ProductCode = bookModel.Code

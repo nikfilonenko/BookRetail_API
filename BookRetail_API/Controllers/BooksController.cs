@@ -70,7 +70,6 @@ public class BooksController : ControllerBase
 
         book.Title = dto.Title;
         book.ProductCode = bookModel.Code;
-        book.Price = dto.Price;
         book.Genre = dto.Genre;
         book.PublicationYear = dto.PublicationYear;
         book.Author = dto.AuthorName;
@@ -96,7 +95,6 @@ public class BooksController : ControllerBase
             Genre = dto.Genre,
             PublicationYear = dto.PublicationYear,
             BookModel = bookModel,
-            Price = dto.Price,
             Author = dto.AuthorName
         };
         _db.CreateBook(book);

@@ -65,9 +65,9 @@ public static class HAL
             var message = new NewBookMessage {
                 Title = book.Title,
                 Genre = book.Genre,
+                Author = book.Author,
                 PublisherName = book?.BookModel?.Publisher?.Name,
                 ModelCode = book?.BookModel?.Code,
-                Price = book.Price,
                 PublicationYear = book.PublicationYear,
                 CreatedAt = DateTimeOffset.UtcNow,
             };

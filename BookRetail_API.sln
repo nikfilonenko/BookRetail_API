@@ -2,6 +2,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookRetail_API", "BookRetail_API\BookRetail_API.csproj", "{24880EE2-7CCD-4204-849B-3EEA8110C8F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Book.AuditLog", "Book.AuditLog\Book.AuditLog.csproj", "{A042717A-36EE-4DC9-8C90-6C4BE4C4DE92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Book.PricingServer", "Book.PricingServer\Book.PricingServer.csproj", "{5F8563B1-5695-45E4-947D-246BE82648D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Book.PricingClient", "Book.PricingClient\Book.PricingClient.csproj", "{75D6FA13-4DA1-467F-8D57-392FC0389BC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +18,17 @@ Global
 		{24880EE2-7CCD-4204-849B-3EEA8110C8F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24880EE2-7CCD-4204-849B-3EEA8110C8F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24880EE2-7CCD-4204-849B-3EEA8110C8F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A042717A-36EE-4DC9-8C90-6C4BE4C4DE92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A042717A-36EE-4DC9-8C90-6C4BE4C4DE92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A042717A-36EE-4DC9-8C90-6C4BE4C4DE92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A042717A-36EE-4DC9-8C90-6C4BE4C4DE92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F8563B1-5695-45E4-947D-246BE82648D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F8563B1-5695-45E4-947D-246BE82648D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F8563B1-5695-45E4-947D-246BE82648D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F8563B1-5695-45E4-947D-246BE82648D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75D6FA13-4DA1-467F-8D57-392FC0389BC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75D6FA13-4DA1-467F-8D57-392FC0389BC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75D6FA13-4DA1-467F-8D57-392FC0389BC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75D6FA13-4DA1-467F-8D57-392FC0389BC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

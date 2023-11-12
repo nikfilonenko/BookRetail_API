@@ -12,7 +12,6 @@ public sealed class BookGraphType : ObjectGraphType<Book> {
         Field(c => c.Title);
         Field(c => c.Author);
         Field(c => c.ProductCode);
-        Field(c => c.Price);
         Field(c => c.Genre);
         Field(c => c.PublicationYear);
     }

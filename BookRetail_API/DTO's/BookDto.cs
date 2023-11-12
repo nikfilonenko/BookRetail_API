@@ -23,10 +23,6 @@ public class BookDto
     public string PublisherName { get; set; }
 
     [Required]
-    [DisplayName("Price")]
-    public string Price { get; set; }
-
-    [Required]
     [Range(1000, 2100, ErrorMessage = "Publication year must be between 1000 and 2100")]
     [DisplayName("Publication Year")]
     public int PublicationYear { get; set; }

@@ -44,11 +44,10 @@ public class BookCsvFileStorage : IBookRetailStorage {
                 var book = new Book {
                     Title = tokens[0],
                     ProductCode = tokens[1],
-                    Price = tokens[2],
-                    Genre = tokens[3],
-                    Author = tokens[4]
+                    Genre = tokens[2],
+                    Author = tokens[3]
                 };
-                if (TryParse(tokens[5], out var year)) book.PublicationYear = year;
+                if (TryParse(tokens[4], out var year)) book.PublicationYear = year;
                 books[book.Title] = book;
             }
             logger.LogInformation($"Loaded {books.Count} books from {filePath}");
