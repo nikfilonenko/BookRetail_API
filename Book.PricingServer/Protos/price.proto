@@ -12,11 +12,12 @@ service Pricer {
 
 // The request message containing the user's name.
 message PriceRequest {
-  string manufacturer = 1;
-  string model = 2;
-  string color = 3;
-  sint32 year = 4;
-  uint32 mileage = 5;
+  string title = 1;
+  string genre = 2;
+  string author = 3;
+  string publisherName = 4;
+  sint32 year = 5;
+  string modelCode = 6;
 }
 
 // The response message containing the greetings.
