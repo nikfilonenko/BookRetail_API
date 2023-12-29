@@ -1,0 +1,29 @@
+@using Book.WebSite.Models
+@model Book.WebSite.Models.BookDto
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+<h4>Advertise a vehicle for sale</h4>
+<form asp-action="Advertise" asp-controller="Books" method="POST" id="advertise-vehicle-form">
+    @Html.HiddenFor(model => model.ProductCode)
+    Make &amp; Model: @Html.DisplayFor(model => model.ProductCode)
+    <hr />
+    <p>
+        @Html.LabelFor(model => model.Title)
+        @Html.EditorFor(model => model.Title)
+        @Html.ValidationMessageFor(model => model.Title)
+    </p>
+    <p>
+        @Html.LabelFor(model => model.PublicationYear)
+        @Html.EditorFor(model => model.PublicationYear)
+        @Html.ValidationMessageFor(model => model.PublicationYear)
+    </p>
+    <p>
+        @Html.LabelFor(model => model.Genre)
+        @Html.DropDownListFor(model => model.Genre, BookDto.ListGenres(Model.Genre))
+        @Html.ValidationMessageFor(model => model.Genre)
+    </p>
+    <input type="submit" value="Advertise!" />
+</form>

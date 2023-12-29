@@ -1,0 +1,15 @@
+@model BookRetail_API.Models.ProductModel
+
+<h1>@Model.Publisher.Name @Model.Code</h1>
+<hr />
+@if (Model.Books.Any()) {
+    <ul>
+        @foreach (var book in Model.Books) {
+            <li><a href="@Url.Action("Details", "Books", new { id = book.Title})">@book.Title</a></li>
+        }
+    </ul>
+} else {
+    <p><em>We don't have any @Model.Publisher.Name @Model.Code books for sale right now.</em></p>
+}
+<hr />
+<a href="@Url.Action("Advertise", "Books" , new { id = @Model.Code })">Sell your @Model.Publisher.Name @Model.Code here</a>

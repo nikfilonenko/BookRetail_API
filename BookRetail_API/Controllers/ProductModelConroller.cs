@@ -1,8 +1,9 @@
 ﻿using BookRetail_API.Data;
+using BookRetail_API.HAL;
 using BookRetail_API.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Auto.API.Controllers;
+namespace BookRetail_API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

@@ -1,0 +1,12 @@
+@model IEnumerable<BookRetail_API.Models.Book>
+@{
+    ViewData["Title"] = "Vehicles";
+}
+
+<ul>
+    @foreach (var book in Model) {
+        <li>
+            <a href="@Url.Action("Details", "Books", new { id = book.Title })">@book.Title</a>
+        </li>
+    }
+</ul>

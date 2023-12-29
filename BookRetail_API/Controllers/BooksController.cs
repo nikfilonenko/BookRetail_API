@@ -1,10 +1,11 @@
 ﻿using BookRetail_API.Data;
 using BookRetail_API.DTO_s;
+using BookRetail_API.HAL;
 using BookRetail_API.Models;
 using EasyNetQ;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Auto.API.Controllers;
+namespace BookRetail_API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -29,7 +30,7 @@ public class BooksController : ControllerBase
         var items = _db.ListBooks().Skip(index).Take(count)
             .Select(v => v.ToResource());
         var total = _db.CountBooks();
-        var _links = HAL.PaginateAsDynamic("/api/books", index, count, total);
+        var _links = HAL.HAL.PaginateAsDynamic("/api/books", index, count, total);
         var result = new
         {
             _links,

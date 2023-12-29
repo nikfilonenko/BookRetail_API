@@ -1,0 +1,20 @@
+@model System.Collections.Generic.IEnumerable<BookRetail_API.Models.ProductModel>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>All Models</h2>
+@foreach (var group in Model.GroupBy(m => m.Publisher).OrderBy(m => m.Key.Name)) {
+    <h3>@group.Key.Name</h3>
+    <ul>
+        @foreach (var bookModel in group) {
+            <li>
+                <a href="@Url.Action("Books", "Models", new {id = bookModel.Code})">
+                    @bookModel.Publisher.Name @bookModel.Code
+                </a>
+            </li>
+        }
+    </ul>
+}

@@ -1,0 +1,25 @@
+@model BookRetail_API.Models.Publisher
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "_Layout";
+}
+
+<h2>@Model.Name</h2>
+<h4>Currently listed for sale:</h4>
+<ul>
+    @foreach (var bookModel in Model.Models.Where(m => m.Books.Count > 0)) {
+        <li>
+            @bookModel.Code
+            <a href="@Url.Action("Books", "Models", new { id = bookModel.Code })">view @bookModel.Books.Count books</a>
+        </li>
+    }
+</ul>
+<h4>Other models:</h4>
+<ul>
+    @foreach (var bookModel in Model.Models.Where(m => m.Books.Count == 0)) {
+        <li>
+            <a href="@Url.Action("Books", "Models", new { id = bookModel.Code })">@bookModel.Code</a>
+        </li>
+    }
+</ul>

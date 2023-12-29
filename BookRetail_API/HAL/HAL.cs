@@ -3,7 +3,8 @@ using System.Dynamic;
 using BookRetail_API.Messages;
 using BookRetail_API.Models;
 
-namespace Auto.API;
+namespace BookRetail_API.HAL;
+
 public static class HAL
 {
         public static dynamic PaginateAsDynamic(string baseUrl, int index, int count, int total) {
