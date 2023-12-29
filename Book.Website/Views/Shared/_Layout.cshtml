@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Book</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -32,8 +32,10 @@
             </div>
         </nav>
     </header>
+
     <div id="signalr-notifications"></div>
-<div class="container">
+
+    <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -41,7 +43,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            This is a sample app.
+            &copy; 2023 - Book Retail App - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.3/signalr.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

@@ -8,7 +8,7 @@ namespace Book.Notifier
 {
     internal class Program
     {
-        const string SIGNALR_HUB_URL = "https://localhost:7041/hub";
+        const string SIGNALR_HUB_URL = "https://localhost:7274/hub";
         private static HubConnection hub;
 
         static async Task Main(string[] args)
@@ -21,17 +21,17 @@ namespace Book.Notifier
             using var bus = RabbitHutch.CreateBus(amqp);
             Console.WriteLine("Connected to bus! Listening for newBookMessages");
             var subscriberId = $"Book.Notifier@{Environment.MachineName}";
-            await bus.PubSub.SubscribeAsync<NewBookPriceMessage>(subscriberId, HandleNewVehicleMessage);
+            await bus.PubSub.SubscribeAsync<NewBookPriceMessage>(subscriberId, HandleNewBookMessage);
             Console.ReadLine();
         }
 
-        private static async void HandleNewVehicleMessage(NewBookPriceMessage nvpm)
+        private static async void HandleNewBookMessage(NewBookPriceMessage nbpm)
         {
             var csvRow =
-                $"{nvpm.Price} {nvpm.CurrencyCode} : {nvpm.Title},{nvpm.PublisherName}," +
-                $"{nvpm.ModelCode},{nvpm.PublicationYear},{nvpm.Genre},{nvpm.Author},{nvpm.CreatedAt:O}";
+                $"{nbpm.Price} {nbpm.CurrencyCode} : {nbpm.Title},{nbpm.PublisherName}," +
+                $"{nbpm.ModelCode},{nbpm.PublicationYear},{nbpm.Genre},{nbpm.Author},{nbpm.CreatedAt:O}";
             Console.WriteLine(csvRow);
-            var json = JsonSerializer.Serialize(nvpm, JsonSettings());
+            var json = JsonSerializer.Serialize(nbpm, JsonSettings());
             await hub.SendAsync("NotifyWebUsers", "Book.Notifier",
                 json);
         }
