@@ -25,5 +25,10 @@
         @Html.DropDownListFor(model => model.Genre, BookDto.ListGenres(Model.Genre))
         @Html.ValidationMessageFor(model => model.Genre)
     </p>
+    <p>
+        @Html.LabelFor(model => model.AuthorName)
+        @Html.DropDownListFor(model => model.AuthorName, BookDto.ListGenres(Model.AuthorName))
+        @Html.ValidationMessageFor(model => model.AuthorName)
+    </p>
     <input type="submit" value="Advertise!" />
 </form>
