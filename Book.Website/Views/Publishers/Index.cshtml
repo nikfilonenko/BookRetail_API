@@ -6,7 +6,7 @@
 
 <h2>Publishers</h2>
 <ul>
-    @foreach (var mfr in Model) {
-        <li><a href="@Url.Action("Models", "Publishers", new { id = mfr.Code })">@mfr.Name</a></li>
+    @foreach (var pbsher in Model) {
+        <li><a href="@Url.Action("Models", "Publishers", new { id = pbsher.Code })">@pbsher.Name</a></li>
     }
 </ul>

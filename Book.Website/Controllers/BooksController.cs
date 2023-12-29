@@ -32,6 +32,7 @@ public class BooksController : Controller {
             ProductCode = booksModel.Code,
             PublisherName = $"{booksModel.Publisher.Name} {booksModel.Code}"
         };
+        
         return View(dto);
     }
 
@@ -42,6 +43,7 @@ public class BooksController : Controller {
         if (existingBook != default)
             ModelState.AddModelError(nameof(dto.Title),
                 "That title is already listed in our database.");
+        
         var bookModel = _db.FindModel(dto.ProductCode);
         
         if (bookModel == default) {
@@ -54,7 +56,9 @@ public class BooksController : Controller {
             Title = dto.Title,
             Genre = dto.Genre,
             BookModel = bookModel,
-            PublicationYear = dto.PublicationYear
+            PublicationYear = dto.PublicationYear,
+            Author = dto.AuthorName,
+            ProductCode = dto.ProductCode
         };
         
         _db.CreateBook(book);
