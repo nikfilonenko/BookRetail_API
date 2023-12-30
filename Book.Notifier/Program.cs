@@ -21,14 +21,14 @@ namespace Book.Notifier
             using var bus = RabbitHutch.CreateBus(amqp);
             Console.WriteLine("Connected to bus! Listening for newBookMessages");
             var subscriberId = $"Book.Notifier@{Environment.MachineName}";
-            await bus.PubSub.SubscribeAsync<NewBookPriceMessage>(subscriberId, HandleNewBookMessage);
+            await bus.PubSub.SubscribeAsync<NewBookMessage>(subscriberId, HandleNewBookMessage);
             Console.ReadLine();
         }
 
-        private static async void HandleNewBookMessage(NewBookPriceMessage nbpm)
+        private static async void HandleNewBookMessage(NewBookMessage nbpm)
         {
             var csvRow =
-                $"{nbpm.Price} {nbpm.CurrencyCode} : {nbpm.Title},{nbpm.PublisherName}," +
+                $"{nbpm.Title},{nbpm.PublisherName}," +
                 $"{nbpm.ModelCode},{nbpm.PublicationYear},{nbpm.Genre},{nbpm.Author},{nbpm.CreatedAt:O}";
             Console.WriteLine(csvRow);
             var json = JsonSerializer.Serialize(nbpm, JsonSettings());
@@ -36,10 +36,9 @@ namespace Book.Notifier
                 json);
         }
 
-        static JsonSerializerOptions JsonSettings() =>
-            new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            };
+        static JsonSerializerOptions JsonSettings() => new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
     }
 }
